@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>New Show</title>
+    <!-- context variable available is 'this_show' -->
+</head>
+<body>
+    <div id="container">
+        <p>
+            <a href="/shows">Go Back</a>
+        </p>
+        <h1>Show Details: {{ this_show.id }}</h1>
+        <p>Title: {{ this_show.title }}</p>
+        <p>Network: {{ this_show.network }}</p>
+        <p>Release Date: {{ this_show.release_date }}</p>
+        <p>Description: {{ this_show.desc }}</p>
+
+        <p>Last Updated: {{ this_show.updated_at }}</p>
+        <a href="/shows/{{ this_show.id }}/edit">Edit |</a>
+        <a href="/shows/{{ this_show.id }}/delete">Delete</a>
+    </div>
+</body>
+</html>

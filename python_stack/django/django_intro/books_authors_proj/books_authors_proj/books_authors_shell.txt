@@ -1,0 +1,333 @@
+1.  Query: Create 5 books with the following names: C Sharp, Java, Python, PHP, Ruby
+
+>>> Book.objects.create(title="C Sharp")
+<Book: Book object (1)>
+>>> Book.objects.create(title="Java")    
+<Book: Book object (2)>
+>>> Book.objects.create(title="Python")
+<Book: Book object (3)>
+>>> Book.objects.create(title="PHP Ruby")
+<Book: Book object (4)>
+>>> fourth_book = Book.objects.get(id=4)
+>>> fourth_book.title = "PHP"
+>>> Book.objects.create(title="Ruby")     
+<Book: Book object (5)>
+
+2.  Query: Create 5 different authors: Jane Austen, Emily Dickinson, Fyodor Dostoevsky, William Shakespeare, Lau Tzu
+
+>>> Author.objects.create(first_name="Jane", last_name="Austen")
+<Author: Author object (1)>
+>>> Author.objects.create(first_name="Emily", last_name="Dickinson")
+<Author: Author object (2)>
+>>> Author.objects.create(first_name="Fyodor", last_name="Dostoevsky")
+<Author: Author object (3)>
+>>> Author.objects.create(first_name="William", last_name="Shakespeare")
+<Author: Author object (4)>
+>>> Author.objects.create(first_name="Lau", last_name="Tzu")             
+<Author: Author object (5)>
+
+3.  Add a new text field in the authors table called 'notes'.
+4.  Create and run the migration files to update the table in your database.
+
+(djangoEnv) C:\Users\Bryce\Desktop\CodingDojo\python_stack\django\django_intro\books_authors_proj>python manage.py makemigrations
+Did you rename book.desc to book.notes (a TextField)? [y/N] y
+Migrations for 'books_authors_app':
+  books_authors_app\migrations\0002_auto_20200816_2145.py
+    - Rename field desc on book to notes
+
+(djangoEnv) C:\Users\Bryce\Desktop\CodingDojo\python_stack\django\django_intro\books_authors_proj>python manage.py migrate
+Operations to perform:
+  Apply all migrations: admin, auth, books_authors_app, contenttypes, sessions
+Running migrations:
+  Applying books_authors_app.0002_auto_20200816_2145... OK
+
+(djangoEnv) C:\Users\Bryce\Desktop\CodingDojo\python_stack\django\django_intro\books_authors_proj>python manage.py shell
+Python 3.6.4 (v3.6.4:d48eceb, Dec 19 2017, 06:54:40) [MSC v.1900 64 bit (AMD64)] on win32
+Type "help", "copyright", "credits" or "license" for more information.
+(InteractiveConsole)
+>>> from books_authors_app.models import Book, Author
+
+5.  Query: Change the name of the C Sharp book to C#
+
+>>> c_sharp_new = Book.objects.get(id=1)
+>>> c_sharp_new.title = "C#"
+>>> c_sharp_new.save()
+
+6.  Query: Change the first name of the 4th author to Bill
+
+>>> will = Author.objects.get(id=4)
+>>> will.first_name = "Bill"
+>>> will.save()
+
+7.  Query: Assign the first author to the first 2 books
+
+>>> jane = Author.objects.get(id=1)
+>>> first_book = Book.objects.get(id=1)
+>>> jane.books.add(first_book)
+>>> jane.books.all()
+<QuerySet [<Book: Book object (1)>]>
+>>> second_book = Book.objects.get(id=2)
+>>> jane.books.add(second_book)
+>>> jane.books.all()
+<QuerySet [<Book: Book object (1)>, <Book: Book object (2)>]>
+
+8.  Query: Assign the second author to the first 3 books
+
+>>> emily = Author.objects.get(id=2)
+>>> third_book = Book.objects.get(id=3)
+>>> emily.books.add(first_book, second_book, third_book)
+>>> emily.books.all()
+<QuerySet [<Book: Book object (1)>, <Book: Book object (2)>, <Book: Book object (3)>]>
+
+9.  Query: Assign the third author to the first 4 books
+
+>>> fyodor = Author.objects.get(id=3)
+>>> fourth_book = Book.objects.get(id=4)
+>>> fyodor.books.add(first_book, second_book, third_book, fourth_book)
+>>> fyodor.books.all()
+<QuerySet [<Book: Book object (1)>, <Book: Book object (2)>, <Book: Book object (3)>, <Book: Book object (4)>]>
+
+10. Query: Assign the fourth author to the first 5 books (or in other words, all the books)
+
+>>> bill = Author.objects.get(id=4)      
+>>> fifth_book = Book.objects.get(id=5)
+>>> bill.books.add(first_book, second_book, third_book, fourth_book, fifth_book)
+>>> bill.books.all()                                                            
+<QuerySet [<Book: Book object (1)>, <Book: Book object (2)>, <Book: Book object (3)>, <Book: Book object (4)>, <Book: Book object (5)>]>
+
+11. Query: Retrieve all the authors for the 3rd book
+
+>>> third_book.authors.all()
+<QuerySet [<Author: Author object (2)>, <Author: Author object (3)>, <Author: Author object (4)>]>
+
+12. Query: Remove the first author of the 3rd book
+
+>>> third_book.authors.remove(emily)
+>>> third_book.authors.all()
+<QuerySet [<Author: Author object (3)>, <Author: Author object (4)>]>
+
+13. Query: Add the 5th author as one of the authors of the 2nd book
+
+>>> lau = Author.objects.get(id=5)
+>>> lau.books.add(second_book)
+>>> lau.books.all()
+<QuerySet [<Book: Book object (2)>]>
+
+14. Query: Find all the books that the 3rd author is part of
+
+>>> fyodor.books.all()
+<QuerySet [<Book: Book object (1)>, <Book: Book object (2)>, <Book: Book object (3)>, <Book: Book object (4)>]>
+
+15. Query: Find all the authors that contributed to the 5th book
+
+>>> fifth_book.authors.all()
+<QuerySet [<Author: Author object (4)>]>
+
+____________________________________________________________
+ALL OF MY TERMINAL
+
+(djangoEnv) C:\Users\Bryce\Desktop\CodingDojo\python_stack\django\django_intro\books_authors_proj>python manage.py makemigrations
+Migrations for 'books_authors_app':
+  books_authors_app\migrations\0001_initial.py
+    - Create model Book
+    - Create model Author
+
+(djangoEnv) C:\Users\Bryce\Desktop\CodingDojo\python_stack\django\django_intro\books_authors_proj>python manage.py migrate
+Operations to perform:
+  Apply all migrations: admin, auth, books_authors_app, contenttypes, sessions
+Running migrations:
+  Applying contenttypes.0001_initial... OK
+  Applying auth.0001_initial... OK
+  Applying admin.0001_initial... OK
+  Applying admin.0002_logentry_remove_auto_add... OK
+  Applying admin.0003_logentry_add_action_flag_choices... OK
+  Applying contenttypes.0002_remove_content_type_name... OK
+  Applying auth.0002_alter_permission_name_max_length... OK
+  Applying auth.0003_alter_user_email_max_length... OK
+  Applying auth.0004_alter_user_username_opts... OK
+  Applying auth.0005_alter_user_last_login_null... OK
+  Applying auth.0006_require_contenttypes_0002... OK
+  Applying auth.0007_alter_validators_add_error_messages... OK
+  Applying auth.0008_alter_user_username_max_length... OK
+  Applying auth.0009_alter_user_last_name_max_length... OK
+  Applying auth.0010_alter_group_name_max_length... OK
+  Applying auth.0011_update_proxy_permissions... OK
+  Applying books_authors_app.0001_initial... OK
+  Applying sessions.0001_initial... OK
+
+(djangoEnv) C:\Users\Bryce\Desktop\CodingDojo\python_stack\django\django_intro\books_authors_proj>python manage.py shell
+Python 3.6.4 (v3.6.4:d48eceb, Dec 19 2017, 06:54:40) [MSC v.1900 64 bit (AMD64)] on win32
+Type "help", "copyright", "credits" or "license" for more information.
+(InteractiveConsole)
+>>> from books_authors_app.models import Book, Author
+>>> Book.objects.create(title="C Sharp")
+<Book: Book object (1)>
+>>> Book.objects.create(title="Java")    
+<Book: Book object (2)>
+>>> Book.objects.create(title="Python")
+<Book: Book object (3)>
+>>> Book.objects.create(title="PHP Ruby")
+<Book: Book object (4)>
+>>> fourth_book = Book.objects.get(id=4)
+>>> fourth_book.title = "PHP"
+>>> Book.objects.create(title="Ruby")
+<Book: Book object (5)>
+>>> Author.objects.create(first_name="Jane", last_name="Austen")
+<Author: Author object (1)>
+>>> Author.objects.create(first_name="Emily", last_name="Dickinson")
+<Author: Author object (2)>
+>>> Author.objects.create(first_name="Fyodor", last_name="Dostoevsky")
+<Author: Author object (3)>
+>>> Author.objects.create(first_name="William", last_name="Shakespeare")
+<Author: Author object (4)>
+>>> Author.objects.create(first_name="Lau", last_name="Tzu")
+<Author: Author object (5)>
+>>> exit()
+
+(djangoEnv) C:\Users\Bryce\Desktop\CodingDojo\python_stack\django\django_intro\books_authors_proj>python manage.py makemigrations
+Did you rename book.desc to book.notes (a TextField)? [y/N] y
+Migrations for 'books_authors_app':
+  books_authors_app\migrations\0002_auto_20200816_2145.py
+    - Rename field desc on book to notes
+
+(djangoEnv) C:\Users\Bryce\Desktop\CodingDojo\python_stack\django\django_intro\books_authors_proj>python manage.py migrate
+Operations to perform:
+  Apply all migrations: admin, auth, books_authors_app, contenttypes, sessions
+Running migrations:
+  Applying books_authors_app.0002_auto_20200816_2145... OK
+
+(djangoEnv) C:\Users\Bryce\Desktop\CodingDojo\python_stack\django\django_intro\books_authors_proj>python manage.py shell
+Python 3.6.4 (v3.6.4:d48eceb, Dec 19 2017, 06:54:40) [MSC v.1900 64 bit (AMD64)] on win32
+Type "help", "copyright", "credits" or "license" for more information.
+(InteractiveConsole)
+>>> from books_authors_app.models import Book, Author
+>>> c_sharp_new = Book.objects.get(id=1)
+>>> c_sharp_new.title = "C#"
+>>> c_sharp_new.save()
+>>> will = Author.objects.get(id=4)
+>>> will.first_name = "Bill"
+>>> will.save()
+>>> jane = Author.objects.get(id=1)
+>>> exit()
+
+(djangoEnv) C:\Users\Bryce\Desktop\CodingDojo\python_stack\django\django_intro\books_authors_proj>python manage.py makemigrations
+Did you rename author.authors to author.books (a ManyToManyField)? [y/N] y
+Migrations for 'books_authors_app':
+  books_authors_app\migrations\0003_auto_20200816_2202.py
+    - Rename field authors on author to books
+
+(djangoEnv) C:\Users\Bryce\Desktop\CodingDojo\python_stack\django\django_intro\books_authors_proj>python manage.py migrate
+Operations to perform:
+  Apply all migrations: admin, auth, books_authors_app, contenttypes, sessions
+Running migrations:
+  Applying books_authors_app.0003_auto_20200816_2202... OK
+
+(djangoEnv) C:\Users\Bryce\Desktop\CodingDojo\python_stack\django\django_intro\books_authors_proj>python manage.py shell
+Python 3.6.4 (v3.6.4:d48eceb, Dec 19 2017, 06:54:40) [MSC v.1900 64 bit (AMD64)] on win32
+Type "help", "copyright", "credits" or "license" for more information.
+(InteractiveConsole)
+>>> jane
+Traceback (most recent call last):
+  File "<console>", line 1, in <module>
+NameError: name 'jane' is not defined
+>>> books.objects.all()
+Traceback (most recent call last):
+  File "<console>", line 1, in <module>
+NameError: name 'books' is not defined
+>>> from books_authors_app.models import Book, Author
+>>> books.objects.all()
+Traceback (most recent call last):
+  File "<console>", line 1, in <module>
+NameError: name 'books' is not defined
+>>> Books.objects.all()
+Traceback (most recent call last):
+  File "<console>", line 1, in <module>
+NameError: name 'Books' is not defined
+>>> Book.objects.all()
+<QuerySet [<Book: Book object (1)>, <Book: Book object (2)>, <Book: Book object (3)>, <Book: Book object (4)>, <Book: Book object (5)>]>
+>>> jane
+Traceback (most recent call last):
+  File "<console>", line 1, in <module>
+NameError: name 'jane' is not defined
+>>> jane = Author.objects.get(id=1)
+>>> jane.books.add("C#")
+Traceback (most recent call last):
+  File "<console>", line 1, in <module>
+  File "C:\Users\Bryce\Desktop\CodingDojo\python_stack\my_environments\djangoEnv\lib\site-packages\django\db\models\fields\related_descriptors.py", line 938, in add
+    through_defaults=through_defaults,
+  File "C:\Users\Bryce\Desktop\CodingDojo\python_stack\my_environments\djangoEnv\lib\site-packages\django\db\models\fields\related_descriptors.py", line 1065, in _add_items  
+    '%s__in' % target_field_name: new_ids,
+  File "C:\Users\Bryce\Desktop\CodingDojo\python_stack\my_environments\djangoEnv\lib\site-packages\django\db\models\query.py", line 892, in filter
+    return self._filter_or_exclude(False, *args, **kwargs)
+  File "C:\Users\Bryce\Desktop\CodingDojo\python_stack\my_environments\djangoEnv\lib\site-packages\django\db\models\query.py", line 910, in _filter_or_exclude
+    clone.query.add_q(Q(*args, **kwargs))
+  File "C:\Users\Bryce\Desktop\CodingDojo\python_stack\my_environments\djangoEnv\lib\site-packages\django\db\models\sql\query.py", line 1290, in add_q
+    clause, _ = self._add_q(q_object, self.used_aliases)
+  File "C:\Users\Bryce\Desktop\CodingDojo\python_stack\my_environments\djangoEnv\lib\site-packages\django\db\models\sql\query.py", line 1318, in _add_q
+    split_subq=split_subq, simple_col=simple_col,
+  File "C:\Users\Bryce\Desktop\CodingDojo\python_stack\my_environments\djangoEnv\lib\site-packages\django\db\models\sql\query.py", line 1251, in build_filter
+    condition = self.build_lookup(lookups, col, value)
+  File "C:\Users\Bryce\Desktop\CodingDojo\python_stack\my_environments\djangoEnv\lib\site-packages\django\db\models\sql\query.py", line 1116, in build_lookup
+    lookup = lookup_class(lhs, rhs)
+  File "C:\Users\Bryce\Desktop\CodingDojo\python_stack\my_environments\djangoEnv\lib\site-packages\django\db\models\lookups.py", line 20, in __init__
+    self.rhs = self.get_prep_lookup()
+  File "C:\Users\Bryce\Desktop\CodingDojo\python_stack\my_environments\djangoEnv\lib\site-packages\django\db\models\fields\related_lookups.py", line 59, in get_prep_lookup   
+    self.rhs = [target_field.get_prep_value(v) for v in self.rhs]
+  File "C:\Users\Bryce\Desktop\CodingDojo\python_stack\my_environments\djangoEnv\lib\site-packages\django\db\models\fields\related_lookups.py", line 59, in <listcomp>        
+    self.rhs = [target_field.get_prep_value(v) for v in self.rhs]
+  File "C:\Users\Bryce\Desktop\CodingDojo\python_stack\my_environments\djangoEnv\lib\site-packages\django\db\models\fields\__init__.py", line 966, in get_prep_value
+    return int(value)
+ValueError: invalid literal for int() with base 10: 'C#'
+>>> jane.books.add(Book.objects.get(id=1)
+... jane.books.all()
+  File "<console>", line 2
+    jane.books.all()
+SyntaxError: invalid syntax
+>>> Book.objects.all()
+<QuerySet [<Book: Book object (1)>, <Book: Book object (2)>, <Book: Book object (3)>, <Book: Book object (4)>, <Book: Book object (5)>]>
+>>> jane.books.add(C#)
+... jane.books.all()
+  File "<console>", line 2
+    jane.books.all()
+       ^
+SyntaxError: invalid syntax
+>>> first_book = Book.objects.get(id=1)
+>>> jane.books.add(first_book)
+>>> jane.books.all()
+<QuerySet [<Book: Book object (1)>]>
+>>> second_book = Book.objects.get(id=2)
+>>> jane.books.add(second_book)
+>>> jane.books.all()
+<QuerySet [<Book: Book object (1)>, <Book: Book object (2)>]>
+>>> emily = Author.objects.get(id=2)
+>>> third_book = Book.objects.get(id=3)
+>>> emily.books.add(first_book, second_book, third_book)
+>>> emily.books.all()
+<QuerySet [<Book: Book object (1)>, <Book: Book object (2)>, <Book: Book object (3)>]>
+>>> fyodor = Author.objects.get(id=3)
+>>> fourth_book = Book.objects.get(id=4)
+>>> fyodor.books.add(first_book, second_book, third_book, fourth_book)
+>>> fyodor.books.all()
+<QuerySet [<Book: Book object (1)>, <Book: Book object (2)>, <Book: Book object (3)>, <Book: Book object (4)>]>
+>>> bill = Author.objects.get(id=4)
+>>> fifth_book = Book.objects.get(id=5)
+>>> bill.books.add(first_book, second_book, third_book, fourth_book, fifth_book)
+>>> bill.books.all()
+<QuerySet [<Book: Book object (1)>, <Book: Book object (2)>, <Book: Book object (3)>, <Book: Book object (4)>, <Book: Book object (5)>]>
+>>> third_book.authors.all()
+<QuerySet [<Author: Author object (2)>, <Author: Author object (3)>, <Author: Author object (4)>]>
+>>> third_book.authors.remove(jane)
+>>> third_book.authors.all()
+<QuerySet [<Author: Author object (2)>, <Author: Author object (3)>, <Author: Author object (4)>]>
+>>> third_book.authors.remove(emily)
+>>> third_book.authors.all()
+<QuerySet [<Author: Author object (3)>, <Author: Author object (4)>]>
+>>> lau = Author.objects.get(id=5)
+>>> lau.books.add(second_book)
+>>> lau.books.all()
+<QuerySet [<Book: Book object (2)>]>
+>>> fyodor.books.all()
+<QuerySet [<Book: Book object (1)>, <Book: Book object (2)>, <Book: Book object (3)>, <Book: Book object (4)>]>
+>>> fifth_book.authors.all()
+<QuerySet [<Author: Author object (4)>]>
+>>>

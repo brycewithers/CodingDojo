@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Edit Trip</title>
+    <!-- context variable: 'update_trip' -->
+</head>
+<body>
+    <div id="container">
+        <a href="/users/logout">Logout</a>
+
+        {% for mistake in messages %}
+        <p style="color: red;">{{ mistake }}</p>
+        {% endfor %}
+
+        <h2>Hello {{ update_trip.traveler.first_name }}! Let's edit your trip!</h2>
+        
+        <form action="/items/{{ update_item.id }}/update" method="POST">
+            {% csrf_token %}
+            <div>
+                <label for="title">Title:</label>
+                <input type="text" name="title" value="{{ update_trip.title }}">
+            </div>
+            <div>
+                <label for="desc">Description:</label>
+                <input type="text" name="desc" value="{{ update_trip.desc }}">
+            </div>
+            <div>
+                <label for="price">Price:</label>
+                <input type="number" name="price" value="{{ update_trip.price }}">
+            </div>
+            <a href="/home_page">Cancel</a>
+            <button type="submit">Submit</button>
+        </form>
+    </div>
+</body>
+</html>

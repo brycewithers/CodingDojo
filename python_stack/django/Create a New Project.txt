@@ -1,0 +1,114 @@
+1. Open the Command Prompt
+	a.	activate your virtual environment
+
+		EX/	cd.. Desktop/CodingDojo/python_stack/my_environments
+			call djangoEnv/scripts/activate
+		
+		go back to the above folder --> "cd .."
+
+	a.	cd Desktop/CodingDojo/python_stack/django/django_intro (WITH ENVIRONMENT ACTIVATED - go to the directory where you want to make a new project)
+	b.	mkdir some_project_name
+	c.	code some_project_name
+
+2. *From the VS Code terminal:
+	a.	django-admin startproject some_project_name .
+	b.	django-admin startapp some_app
+
+3. *Project level:
+	a.	go to "settings.py" and add the app to the "INSTALLED APPS" list
+	b.	go to "urls.py" and comment out or remove "import admin" line AND 'admin...' path
+	c.	append 'include' to the "from django.urls import path" line --> "from django.urls import path, include"
+	d.	place within "urlpatterns" 'path('', include('some_app.urls')
+		
+		EX/	urlpatterns = [
+    				path('', include('dojo_ninjas_app.urls')),
+			]
+
+	e.	save both the "settings.py" and "urls.py"
+
+4. *App level:
+	a.	create a new file called "urls.py" and copy "from django.urls import path" & the "urlpatterns" from the project level 'urls.py'
+	b.	remove "include" and alter the "path"... **this is where we are going to initially call to our views.py page!!!
+	c.	remember to ad below the "from django.urls" line: "from . import views" --> this means that 'from the same directory (app) import the views.py file!!
+	d.	should look like this:
+
+		EX/	from django.urls import path
+			from . import views
+
+			urlpatterns = [
+    				path('', views.index),
+		]
+
+	e.	THIS IS WHERE WE AD ALL OUR ROUTES(PATHS) AND INVOKE FUNCTIONS THAT ARE IN THE VIEWS
+
+5. *Still in the app - we will now look at 'views.py'
+	a.	at this point we can add functions to our 'views.py' file BUT WE ARE LIKELY USING SOME MODEL:
+
+___Create a model or ERD (Entity Relationship(s) Mapper) before going into the views____
+
+OR
+
+___Create a 'def index(request):
+		 	pass
+
+6. *App level 'models.py' file
+	a.	this is where we will create our ERD! 
+
+	This is an EX/
+
+	from django.db import models
+
+	# Create your models here.
+	class User(models.Model):
+    	first_name = models.CharField(max_length=255)
+    	last_name = models.CharField(max_length=255)
+    	email_address = models.CharField(max_length=255)
+    	age = models.IntegerField()
+
+	created_at = models.DateTimeField(auto_now_add=True)
+    	updated_at = models.DateTimeField(auto_now=True)
+
+	here is an EX/ of 'one to many' using the "ForeignKey"
+
+	class Author(models.Model):
+   		name = models.CharField(max_length=255)
+   		created_at = models.DateTimeField(auto_now_add=True)
+   		updated_at = models.DateTimeField(auto_now=True)
+	class Book(models.Model):
+    		title = models.CharField(max_length=255)
+  		author = models.ForeignKey(Author, related_name="books", on_delete = models.CASCADE)
+    		created_at = models.DateTimeField(auto_now_add=True)
+    		updated_at = models.DateTimeField(auto_now=True)
+
+	Quick example of how to use the foreign key:
+
+		from django.db import models
+
+		# Create your models here.
+		class Dojo(models.Model):
+    			dojo_name = models.CharField(max_length = 255)
+    			dojo_city = models.CharField(max_length = 255)
+    			dojo_state = models.CharField(max_length = 2)
+    			# desc = models.TextField()
+
+		class Ninja(models.Model):
+    			dojo = models.ForeignKey(Dojo, related_name = "ninjas", on_delete = models.CASCADE)
+    			first_name = models.CharField(max_length = 255)
+    			last_name = models.CharField(max_length = 255)
+
+		# laDojo = Dojo.objects.create(dojo_name="LA Dojo", dojo_city="LA", dojo_state="CA")
+
+		# howard = Ninja.objects.create(dojo=laDojo,first_name="Howard", last_name="Shin")
+		# bryce = Ninja.objects.create(dojo=laDojo,first_name="Bryce", last_name="Withers")
+		# howard.dojo
+
+		# laDojo.ninjas -> [howard, bryce]
+
+7. Models/Shell
+	a.	Once you have a models.py file setup with classes (built up your ERD) you can go to the VS Code terminal and:
+
+		1.	"python manage.py makemigrations"
+		2.	"python manage.py migrate"
+		3.	"pyhton manage.py shell"
+		4.	"from app_name.models import class_name" (NOTE: you can import more than 1 at a time like so --> ...import Class1, Class2, Class3, etc...)
+		5.	

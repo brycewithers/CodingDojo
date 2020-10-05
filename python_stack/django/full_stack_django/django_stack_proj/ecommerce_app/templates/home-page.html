@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Home Page</title>
+    <!-- context variable: 'logged_in_user', 'all_items' -->
+</head>
+<body>
+    <div id="container">
+        <a href="/users/logout">Logout</a>
+        | <a href="/items/new">List a new item!</a>
+        <h2>Hello {{ logged_in_user.first_name }}!</h2>
+        <p>Your items:</p>
+        <table>
+            <thead>
+                <tr>
+                    <th>Title</th>
+                    <th>Description</th>
+                    <th>Price</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for item in all_items %}
+                {% if item.buyer.id == logged_in_user.id  %}
+                <tr>
+                    <td>
+                        <a href="/items/{{ item.id }}">{{ item.title }}</a>
+                    </td>
+                    <td>{{ item.desc }}</td>
+                    <td>{{ item.price }}</td>
+                    <td>
+                        {% if item.buyer.id == logged_in_user.id  %}
+                        <a href="/items/{{ item.id }}/delete">Remove</a>
+                        | <a href="/items/{{ item.id }}/edit">Edit</a>
+                        {% endif  %}
+                    </td>
+                </tr>
+                {% endif  %}
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</body>
+</html>

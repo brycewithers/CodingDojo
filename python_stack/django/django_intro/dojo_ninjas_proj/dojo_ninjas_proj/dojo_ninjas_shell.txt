@@ -1,0 +1,139 @@
+1.  Run the shell and import your models
+
+(djangoEnv) C:\Users\Bryce\Desktop\CodingDojo\python_stack\django\django_intro\dojo_ninjas_proj>python manage.py shell
+Python 3.6.4 (v3.6.4:d48eceb, Dec 19 2017, 06:54:40) [MSC v.1900 64 bit (AMD64)] on win32
+Type "help", "copyright", "credits" or "license" for more information.
+(InteractiveConsole)
+ 
+>>> from dojo_ninjas_app.models import Dojo, Ninja
+
+2.  Query: Create 3 new dojos
+
+>>> Dojo.objects.create(dojo_name ="Full-Time Onsite Immersive", dojo_city = "Bellevue", dojo_state = "WA")
+<Dojo: Dojo object (1)>
+>>> Dojo.objects.create(dojo_name ="Full-Time Onsite Immersive", dojo_city = "Dallas", dojo_state = "TX")   
+<Dojo: Dojo object (2)>
+>>> Dojo.objects.create(dojo_name ="Full-Time Onsite Immersive", dojo_city = "San Jose", dojo_state = "CA") 
+<Dojo: Dojo object (3)>
+
+3.  Query: Delete the 3 dojos you just created
+
+>>> first_dojo = Dojo.objects.get(id=1)
+>>> first_dojo.delete()
+(1, {'dojo_ninjas_app.Ninja': 0, 'dojo_ninjas_app.Dojo': 1})
+
+>>> second_dojo = Dojo.objects.get(id=2)
+>>> second_dojo.delete()
+(1, {'dojo_ninjas_app.Ninja': 0, 'dojo_ninjas_app.Dojo': 1})
+
+>>> third_dojo = Dojo.objects.get(id=3) 
+>>> third_dojo.delete()  
+(1, {'dojo_ninjas_app.Ninja': 0, 'dojo_ninjas_app.Dojo': 1})
+
+4.  Query: Create 3 more dojos
+
+>>> Dojo.objects.create(dojo_name ="Full-Time Onsite Immersive", dojo_city = "Bellevue", dojo_state = "WA")
+<Dojo: Dojo object (4)>
+>>> Dojo.objects.create(dojo_name ="Full-Time Onsite Immersive", dojo_city = "Boise", dojo_state = "ID")
+<Dojo: Dojo object (5)>
+>>> Dojo.objects.create(dojo_name ="Full-Time Onsite Immersive", dojo_city = "Arlington", dojo_state = "VA")
+<Dojo: Dojo object (6)>
+
+5.  Query: Create 3 ninjas that belong to the first dojo
+
+>>> first_dojo = Dojo.objects.get(id=4)
+>>> Ninja.objects.create(first_name = "Bryce", last_name = "Withers", dojo = first_dojo)   
+<Ninja: Ninja object (1)>
+>>> Ninja.objects.create(first_name = "Mackenzie", last_name = "Cornell", dojo = first_dojo) 
+<Ninja: Ninja object (2)>
+>>> Ninja.objects.create(first_name = "Caitlyn", last_name = "Larson", dojo = first_dojo)    
+<Ninja: Ninja object (3)>
+
+6.  Query: Create 3 ninjas that belong to the second dojo
+
+>>> second_dojo = Dojo.objects.get(id=5) 
+>>> Ninja.objects.create(first_name = "Monty", last_name = "Withers", dojo = second_dojo)   
+<Ninja: Ninja object (4)>
+>>> Ninja.objects.create(first_name = "Luke", last_name = "Larson", dojo = second_dojo)   
+<Ninja: Ninja object (5)>
+>>> Ninja.objects.create(first_name = "Nick", last_name = "King", dojo = second_dojo)   
+<Ninja: Ninja object (6)>
+
+7.  Query: Create 3 ninjas that belong to the third dojo
+
+>>> third_dojo = Dojo.objects.get(id=6)  
+>>> Ninja.objects.create(first_name = "Jamie", last_name = "Pip", dojo = third_dojo)   
+<Ninja: Ninja object (7)>
+>>> Ninja.objects.create(first_name = "Adam", last_name = "Greg", dojo = third_dojo) 
+<Ninja: Ninja object (8)>
+>>> Ninja.objects.create(first_name = "Davin", last_name = "Fitz", dojo = third_dojo)
+<Ninja: Ninja object (9)>
+
+8.  Query: Retrieve all the ninjas from the first dojo
+
+>>> first_dojo = Dojo.objects.get(id=4)
+>>> ninjas = Ninja.objects.filter(dojo=first_dojo) 
+>>> print(ninjas)
+<QuerySet [<Ninja: Ninja object (1)>, <Ninja: Ninja object (2)>, <Ninja: Ninja object (3)>]>
+
+9.  Query: Retrieve all the ninjas from the last dojo
+
+>>> ninjas = Ninja.objects.filter(dojo=third_dojo)
+>>> print(ninjas)
+<QuerySet [<Ninja: Ninja object (7)>, <Ninja: Ninja object (8)>, <Ninja: Ninja object (9)>]>
+
+10. Query: Retrieve the last ninja's dojo
+
+>>> last_ninja = Ninja.objects.get(id=9)
+>>> last_ninja
+<Ninja: Ninja object (9)>
+>>> last_ninja.dojo
+<Dojo: Dojo object (6)>
+
+11. Add a new text field called "desc" to your Dojo class
+
+Migrations for 'dojo_ninjas_app':
+  dojo_ninjas_app\migrations\0002_dojo_desc.py
+    - Add field desc to dojo
+
+(djangoEnv) C:\Users\Bryce\Desktop\CodingDojo\python_stack\django\django_intro\dojo_ninjas_proj>python manage.py migrate
+Operations to perform:
+  Apply all migrations: admin, auth, contenttypes, dojo_ninjas_app, sessions
+Running migrations:
+  Applying dojo_ninjas_app.0002_dojo_desc... OK
+
+12.   Query: Create a new dojo
+
+>>> from dojo_ninjas_app.models import Dojo, Ninja
+>>> Dojo.objects.create(dojo_name = "Full-Time Onsite Immersive", dojo_city = "Chicago", dojo_state = "IL", desc = "Testing-Testing!")
+<Dojo: Dojo object (7)>
+
+______________________________________________________________________________
+
+(djangoEnv) C:\Users\Bryce\Desktop\CodingDojo\python_stack\django\django_intro\dojo_ninjas_proj>python manage.py makemigrations
+You are trying to add a non-nullable field 'desc' to dojo without a default; we can't do that (the database needs something to populate existing rows).
+Please select a fix:
+ 1) Provide a one-off default now (will be set on all existing rows with a null value for this column)
+ 2) Quit, and let me add a default in models.py
+Select an option: 1
+Please enter the default value now, as valid Python
+The datetime and django.utils.timezone modules are available, so you can do e.g. timezone.now
+Type 'exit' to exit this prompt
+>>> "old dojo"
+Migrations for 'dojo_ninjas_app':
+  dojo_ninjas_app\migrations\0002_dojo_desc.py
+    - Add field desc to dojo
+
+(djangoEnv) C:\Users\Bryce\Desktop\CodingDojo\python_stack\django\django_intro\dojo_ninjas_proj>python manage.py migrate
+Operations to perform:
+  Apply all migrations: admin, auth, contenttypes, dojo_ninjas_app, sessions
+Running migrations:
+  Applying dojo_ninjas_app.0002_dojo_desc... OK
+
+(djangoEnv) C:\Users\Bryce\Desktop\CodingDojo\python_stack\django\django_intro\dojo_ninjas_proj>python manage.py shell
+Python 3.6.4 (v3.6.4:d48eceb, Dec 19 2017, 06:54:40) [MSC v.1900 64 bit (AMD64)] on win32
+Type "help", "copyright", "credits" or "license" for more information.
+(InteractiveConsole)
+>>> from dojo_ninjas_app.models import Dojo, Ninja
+>>> Dojo.objects.create(dojo_name = "Full-Time Onsite Immersive", dojo_city = "Chicago", dojo_state = "IL", desc = "Testing-Testing!")
+<Dojo: Dojo object (7)>

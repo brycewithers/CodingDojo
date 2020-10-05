@@ -1,0 +1,21 @@
+Postman + Pokemon API Assignment:
+
+	1.	[GET]	https://pokeapi.co/api/v2/pokemon/pikachu
+		
+		(pulled up pikachu by name)
+
+	2.	[GET]	https://pokeapi.co/api/v2/pokemon/100
+
+		(pulled up voltorb by id)
+
+	3.	[GET]	https://pokeapi.co/api/v2/pokemon/steelix
+		
+		(pulled up steelix by name)
+
+	4.	[GET]	https://pokeapi.co/api/v2/pokemon/mew
+
+		(pulled up steelix by name)
+
+	5.	[GET]	https://pokeapi.co/api/v2/pokemon/6
+
+		(pulled up charizard by id)

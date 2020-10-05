@@ -1,0 +1,105 @@
+* {
+    margin: 0px;
+    padding: 0px;
+    font-family: sans-serif;
+    /* outline: 1px dotted pink; */
+}
+
+body {
+    background-color: black;
+}
+
+#container {
+    width: 970px;
+    background-color: white;
+    margin: 0 auto;
+}
+
+    header {
+        display: flex;
+        justify-content: space-around;
+        align-items: center;
+        height: 70px;
+    }
+        header h1 {
+            width: 440px;
+            font-family: "Comic Sans MS", cursive, sans-serif;
+        }
+        header h3 {
+            width: 440px;
+            text-align: right;
+            font-family: sans-serif;
+        }
+    main {
+        background-image: radial-gradient(rgb(158, 132, 158),#452747);
+        padding: 20px;
+    }
+        #bio {
+            display: flex;
+            margin-bottom: 20px;
+        }
+        #bio img {
+            width: 45%;
+            border: 6px solid gray;
+            margin-right: 20px;
+        }
+        #bio section {
+            background-color: white;    
+        }
+            .lead {
+                background-color: gray;
+                padding: 8px 15px;
+                color: white;
+                font-weight: lighter;
+            }
+            #bio section p, #bio section a  {
+                margin: 15px;
+            }
+    #work {
+        display: flex;
+    }
+        .example {
+            background-color: wheat;
+            margin-left: 20px;
+            width: 33%;
+        }
+        .example:nth-child(1){
+            margin-left: 0px;
+        }
+        .example img {
+            width: 100%;
+        }
+        .example p {
+            padding: 5px;
+            font-size: small;
+        }
+        .badges img {
+            width: 15%;
+            padding: 5px;
+        }
+        .example button {
+            background-color: green;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-weight: bold;
+            padding: 5px;
+            margin: 10px;
+            box-sizing: border-box;
+            align-items: center;
+        }
+    footer {
+        height: 80px;
+        text-align: center;
+    }
+        footer p {
+            margin: 5px;
+        }
+        footer img {
+            width: 20px;
+        }
+
+        /* display: flex;
+        justify-content: space-around;
+        align-items: center;
+        height: 70px; */

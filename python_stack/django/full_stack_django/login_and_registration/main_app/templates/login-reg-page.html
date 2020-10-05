@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login and Registration</title>
+</head>
+<body>
+    <div id="container">
+        <h1>Registration</h1>
+        {% for mistake in messages %}
+            <p style="color: red;">{{ mistake }}</p>
+        {% endfor %}
+
+        <form action="/users/create" method="POST">
+            {% csrf_token %}
+            <div>
+                <label for="first_name">First Name</label>
+                <input type="text" name="first_name">
+            </div>
+            <div>
+                <label for="last_name">Last Name</label>
+                <input type="text" name="last_name">
+            </div>
+            <div>
+                <label for="email_address">Email</label>
+                <input type="text" name="email_address">
+            </div>
+            <div>
+                <label for="password">Password</label>
+                <input type="password" name="password">
+            </div>
+            <div>
+                <label for="confirm_pw">Confirm Password</label>
+                <input type="password" name="confirm_pw">
+            </div>
+            <button type="submit">Submit</button>
+        </form>
+
+        <h1>Login</h1>
+
+        <form action="/users/login" method="POST">
+            <!-- {% for mistake in messages %}
+                <p style="color: red;">{{ mistake }}</p>
+            {% endfor %} -->
+            {% csrf_token %}
+            <div>
+                <label for="email_address">Email</label>
+                <input type="text" name="email_address">
+            </div>
+            <div>
+                <label for="password">Password</label>
+                <input type="password" name="password">
+            </div>
+            <button type="submit">Log In</button>
+        </form>
+    </div>
+</body>
+</html>

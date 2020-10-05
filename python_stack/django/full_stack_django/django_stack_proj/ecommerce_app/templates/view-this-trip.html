@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>View Trip</title>
+    <!-- context variable: 'item_details' -->
+</head>
+<body>
+    <div id="container">
+        <a href="/users/logout">Logout</a>
+        | <a href="/home_page">Dashboard</a>
+
+        <h2>Hello {{ current_user.first_name }}! Read about this item!</h2>
+        <h3>{{ item_details.title }}</h3>
+        <p>Description: {{ item_details.desc }}</p>
+        <p>Price: {{ item_details.price }}</p>
+        <p>Created on: {{ item_details.created_at }}</p>
+        <p>Last Updated: {{ item_details.updated_at }}</p>
+        <p>Stock: {{ item_details.stock }}</p>
+        <p>Created by: {{ item_details.traveler.first_name }}</p>
+    </div>
+</body>
+</html>

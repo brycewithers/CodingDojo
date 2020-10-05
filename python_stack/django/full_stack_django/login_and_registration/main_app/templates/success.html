@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Welcome</title>
+    <!-- context variables: 'current_user' -->
+</head>
+<body>
+    <div id="container">
+        <a href="/users/log-out">Log Out</a>
+        <h1>Success! Welcome, {{ current_user.first_name }}!</h1>
+        <p>Successfully registered and/or logged in!</p>
+    </div>
+</body>
+</html>
