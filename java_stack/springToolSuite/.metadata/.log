@@ -2697,3 +2697,18 @@ java.util.concurrent.TimeoutException
 
 !ENTRY org.springframework.tooling.ls.eclipse.commons 1 0 2020-10-05 21:22:29.736
 !MESSAGE executing callback sts4.classpath.CPTdkXRE SUCCESS [done]
+
+!ENTRY org.springframework.tooling.ls.eclipse.commons 1 0 2020-10-05 21:51:00.166
+!MESSAGE exists = true open = true => deleted = false
+
+!ENTRY org.springframework.tooling.ls.eclipse.commons 1 0 2020-10-05 21:51:00.167
+!MESSAGE classpath=2 entries
+
+!ENTRY org.springframework.tooling.ls.eclipse.commons 1 0 2020-10-05 21:51:00.168
+!MESSAGE buffering callback sts4.classpath.CPTdkXRE ObjectMaster2 false 2
+
+!ENTRY org.springframework.tooling.ls.eclipse.commons 1 0 2020-10-05 21:51:00.169
+!MESSAGE executing callback sts4.classpath.CPTdkXRE 1 batched events
+
+!ENTRY org.springframework.tooling.ls.eclipse.commons 1 0 2020-10-05 21:51:00.178
+!MESSAGE executing callback sts4.classpath.CPTdkXRE SUCCESS [done]
