@@ -1,60 +1,51 @@
-// // queue: isPalindrome
-// // return true or false if the queue is a palindrome:
-// // a palindrome is a string or number that is equal to itself when reversed
 
-// // racecar === racecar
-// // race !=== ecar
+// using only one extra stack for storage, check if a given stack is sorted
+// return the stack back to it's original order when you are done
+// assume node.data are integers
+function isStackSorted(stack) {
+    let tempStack = new slStack();
+    let sorted = true;
 
+    while (!stack.isEmpty()) {
+        let tempNode = stack.pop();
+        if (tempStack.isEmpty() || tempStack().peek().data <= tempNode.data) {
+            tempStack.push(tempNode);
+        } else {
+            sorted = false;
+            tempStack.push(tempNode);
+            break;
+        }
+    }
+    while (!tempStack.isEmpty()) {
+        stack.push(tempStack.pop());
+    }
+    return sorted;
+}
 
+// bonus
+// given two queues, return the one with the greater sum.
+// return the queues to their original order
+function greaterOfTwoQueues(queue1, queue2) {
+    return sumQueue(queue1) >= sumQueue(queue2) ? queue1 : queue2;
+}
+function sumQueue(queue) {
+    let newQueue = new Queue();
+    let sum = 0;
 
-// //            r                   f
-// // queue = <-(1)<-(2)<-(3)<-(2)<-(1)
-// // return true
+    while (!queue.isEmpty()) {
+        let node = queue.dequeue();
+        sum += node.data;
+        newQueue.enqueue(node);
+    }
+    while (!newQueue.isEmpty()) {
+        queue.enqueue(newQueue.dequeue());
+    }
+    return sum;
+}
 
-// //            r               f
-// // queue = <-(1)<-(3)<-(4)<-(40)
-// // return false
-
-// // you may not linearly iterate through your queue
-// // only use public queue methods (enqueue, dequeue, checkFront, isEmpty, length)
-// // return the queue back to it's original order
-
-// // you may use stacks or queues as additional storage, or even arrays
-// // you may create helper methods to break this challenge down into smaller parts
-
-// function isPalindrome(queue) {
-//     let str1 = "";
-//     let str2 = "";
-
-//     while (!queue.isEmpty()) {
-//         let node = queue.dequeue();
-//         str1 += node.data;
-//         newQueue.enqueue(node);
-//     }
-
-//     for (let i = str1.length - 1; i >= 0; i--) {
-//         str2 += str1[i];
-//     }
-
-//     while (!newQueue.isEmpty()) {
-//         queue.enqueue(newQueue.dequeue());
-//     }
-
-//     return str1 == str2;
-// }
-
-// let myQueue = new Queue();
-// myQueue.enqueue(new Node(1));
-// myQueue.enqueue(new Node(2));
-// myQueue.enqueue(new Node(3));
-// myQueue.enqueue(new Node(2));
-// myQueue.enqueue(new Node(1));
-
-// console.log(isPalindrome(myQueue));
 
 // Queue
 // FIFO (First in, first out)
-
 
 
 class Queue {
@@ -65,7 +56,7 @@ class Queue {
     }
 
     enqueue(node) {
-         if (this.rear === null) {
+        if (this.rear === null) {
             this.rear = node;
             this.front = node;
         } else {
@@ -76,7 +67,7 @@ class Queue {
     }
 
     dequeue() {
-        if (this.front === null ){
+        if (this.front === null) {
             return null;
         };
         if (this.front === this.rear) {
@@ -89,29 +80,29 @@ class Queue {
         return node;
     }
 
-    checkFront(){
+    checkFront() {
         return this.front ? this.front.data : null;
     }
 
-    isEmpty(){
+    isEmpty() {
         return this.front === null;
     }
 
-    length(){
+    length() {
         return this.length;
     }
 }
 
-function readQueue(queue){
+function readQueue(queue) {
     var tempQueue = new Queue();
 
-    while(!queue.isEmpty()){
+    while (!queue.isEmpty()) {
         var tempNode = queue.dequeue();
         console.log(tempNode.data);
         tempQueue.enqueue(tempNode);
     }
 
-    while(!tempQueue.isEmpty()){
+    while (!tempQueue.isEmpty()) {
         queue.enqueue(tempQueue.dequeue());
     }
 
@@ -228,7 +219,6 @@ function countStack(stack) {
     return count;
 };
 
-
 // queue: isPalindrome
 // return true or false if the queue is a palindrome:
 // a palindrome is a string or number that is equal to itself when reversed
@@ -254,45 +244,23 @@ function countStack(stack) {
 // you may create helper methods to break this challenge down into smaller parts
 
 function isPalindrome(queue) {
-    let newQueue = new Queue();
-    let str1 = "";
-    let str2 = "";
-
-    while (!queue.isEmpty()) {
-        let node = queue.dequeue();
-        str1 += node.data;
-        newQueue.enqueue(node);
-    }
-
-    for (let i = str1.length - 1; i >= 0; i--) {
-        str2 += str1[i];
-    }
-
-    while (!newQueue.isEmpty()) {
-        queue.enqueue(newQueue.dequeue());
-    }
-
-    return str1 == str2;
-}
-
-// second approach
-function isPalindrome(queue) {
     var palindrome = true;
-    var stack = new stack();
-    var len = queue.length();
+    var stack = new Stack();  // create a stack to hold data
+    var len = queue.length(); // get a fixed length
 
     for (var i = 0; i < len; i++) {
         var node = queue.dequeue();
-        stack.push(new Node(node.data));
+        stack.push(new Node(node.data)); // we must create new Nodes for the stack
         queue.enqueue(node);
     }
-    
+
+
     for (var i = 0; i < len; i++) {
         var dequeued = queue.dequeue();
         var popped = stack.pop();
 
         if (popped.data !== dequeued.data) {
-            palindrome = false;
+            palindrome = false; // even if we flip palindrome to false, keep going to fix the queue
         }
 
         queue.enqueue(dequeued);
@@ -302,10 +270,20 @@ function isPalindrome(queue) {
 }
 
 let myQueue = new Queue();
-myQueue.enqueue(new Node(1));
-myQueue.enqueue(new Node(2));
-myQueue.enqueue(new Node(3));
-myQueue.enqueue(new Node(2));
-myQueue.enqueue(new Node(1));
+myQueue.enqueue(1);
+myQueue.enqueue(2);
+myQueue.enqueue(3);
+myQueue.enqueue(2);
+myQueue.enqueue(1);
+
+let myOtherQueue = new Queue();
+myOtherQueue.enqueue(1);
+myOtherQueue.enqueue(40);
+myOtherQueue.enqueue(3);
+myOtherQueue.enqueue(2);
+myOtherQueue.enqueue(1);
 
 console.log(isPalindrome(myQueue));
+console.log(isPalindrome(myOtherQueue));
+
+
