@@ -14,14 +14,18 @@ public class MainController {
 	}
 	
 	@RequestMapping("/date")
-	public String displayDate(Model model) {
-		model.addAttribute("current", new Date());
-		return "displaydate.jsp";
+	public String date(Model model) {
+		Date curDate = new Date();
+		String dateText = String.format("%tA, the %<te of %<tB, %<tY", curDate);
+		model.addAttribute("curDate", dateText);
+		return "date.jsp";
 	}
 	
 	@RequestMapping("/time")
-	public String displayTime(Model model) {
-		model.addAttribute("current", new Date());
-		return "displaytime.jsp";
-	}
+    public String time(Model model) {
+        Date curDate = new Date();
+        String curTime = String.format("%tI:%<tM %<Tp", curDate);
+        model.addAttribute("curTime", curTime);
+        return "time.jsp";
+    }
 }

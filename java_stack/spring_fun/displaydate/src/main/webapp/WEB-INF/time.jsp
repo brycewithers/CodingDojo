@@ -5,10 +5,11 @@
 <html>
 <head>
 <meta charset="ISO-8859-1">
-<title>Time Dashboard</title>
+<title>Time</title>
+<link rel="stylesheet" type="text/css" href="css/time.css">
+<script type="text/javascript" src="js/time.js"></script>
 </head>
 <body>
-	<a href="/date">Date Template</a><br>
-	<a href="/time">Time Template</a>
+	<h2><c:out value="${curTime}"/></h2>
 </body>
 </html>
