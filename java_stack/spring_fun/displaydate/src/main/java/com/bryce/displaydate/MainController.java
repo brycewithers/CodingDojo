@@ -1,8 +1,9 @@
 package com.bryce.displaydate;
 
 import java.util.Date;
-import org.springframework.ui.Model;
+
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
