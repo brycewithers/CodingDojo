@@ -88,3 +88,23 @@ Before adding our code, take a look at your current code in the file. Now, compa
         	}
 	}
 	Restart your server and navigate to localhost:8080 in your browser. You should see the message "Hello World!" on you screen.
+
+
+FOLLOWING ALONG IN HIS DEMO FROM W2D5
+
+1.	Open the msql workbench to create shcema
+2.	name it and use UTF-8
+3.	go into STS and create a new "spring starter project" --> you can name the project
+4. 	install dependencies -->
+5.	go to the pom.xml file and install other dependencies --> jstl, tomcat, validations
+6.	create the web-inf folder and file
+7. 	setup the application.properties file
+8.	run as a spring boot app
+9.	go to src/main/java --> create new package from the given file and create the main controller
+10.	go to the web-inf folder and add a new index.jsp file that will talk to the main controller and the index method that we will make
+11. 	this main controller file will have annotations like "@Controller" and then our "@GetMapping" or "@RequestMapping"
+12.	add a new package called .models
+13.	add a new class off that package^ and this file will be where we create a class contstructor
+14.	when you make models --> we need to make a new package at the same level as our models package that will be .repos
+15.	we will mirror our models classes with repo classes and these methods will extend others
+16.	we now new to make "services" that will interact between these --> 

@@ -1,0 +1,85 @@
+Creating a Simple CRUD in Spring - Notes
+ 
+First Step: Create the Schema in MySQL e.g. book-schema.  I usually name my schema like <project>-schema
+Then Connect to Database. At this point there are no Tables yet.
+
+Create the Project as Spring Starter Project with the ff dependencies:
+Spring Bot Dev Tools
+Spring Data JPA
+MySQL driver
+Spring Web
+
+
+Then Add these in POM:
+JSTL
+Tomcat... jesper
+
+
+also add this manually in POM.xml: for validation to kick in properly i.e. @Size, @Range
+ <dependency>
+        <groupId>org.springframework.boot</groupId>
+        <artifactId>spring-boot-starter-validation</artifactId>
+ </dependency>   
+
+
+Put this in Application Properties when connecting to MySQL:
+
+spring.datasource.url=jdbc:mysql://localhost:3306/<<YOUR_SCHEMA>>
+spring.datasource.username=<<dbuser>>
+spring.datasource.password=<<dbpassword>>
+spring.datasource.driver-class-name=com.mysql.jdbc.Driver
+spring.jpa.hibernate.ddl-auto=update
+
+
+Create the Package for the Models. Ex. Language.java, make the name same as the <project> to simplify things. 
+Create the Java Class for the Table/s.  (after creating, copy existing model java except the getters and setters and use Find and Replace) 
+Make sure the following are defined:
+All the fields.
+Validations on the fields.
+Constructor with no parameter
+Getter and Setters
+--> this will make it like a Java Bean, so MySQL will create the Table/s.
+
+
+Run the Project. rightClick Project Run as Spring Boot App
+Verify that the Table/s are created.
+Then you can add more constructors in the Models, i.e. with the fields passed as parameters to the constructor.
+
+This entry can be removed when the Table has been created.
+spring.datasource.driver-class-name=com.mysql.jdbc.Driver
+
+Add these later in the Application Properties when testing the projectsController:
+spring.mvc.view.prefix=/WEB-INF/
+spring.mvc.hiddenmethod.filter.enabled=true
+
+
+Create Repositories Package 
+Create the Repositories Interface that Extends the CRUD Repository (after creating, copy existing repo and use Find and Replace)
+Example: LanguageRepository  (filename is LanguageRepository.java)
+
+Create the Services Package 
+Create the Services Class   (after creating, copy existing services and use Find and Replace) Ex. LanguageService
+
+
+Create the Controllers Package
+Create the ControllersApi  ex. LanguagesApi
+Test the projectsApi via PostMan - POST, GET, DELETE --- make sure these are all working OK to ensure that the functionalities and 
+database connectivity are OK.
+
+Create the  projectsController (This is the one you will use to support the CRUD functionality), ex. LanguagesController
+You can test this together with the jsp views. 
+
+Below Maven Dependencies, you will find src/main/webapp
+Also add these:  WEB-INF/<project anme with s>, so the folder above will become: src/main/webapp WEB-INF/<project-name with s>
+Under <project name s> create the  JSP files: index, edit, show, add, etc.  Copy and paste from existing ones. Then modify.
+
+Under static folder, create css, image, sound then add the corresponding files there.  Again copy and paste, especially the CSS.
+
+Modify the projectsController.java file to enable/support the Views (with the CRUD functionality) 
+
+Run the Project - rightClick Run as Spring Boot App
+ 
+
+Tips:
+Use Console Logging extensively for debugging and diagnosing issues.
+If compiling OK but not working, compare with existing Projects that are working OK for any missing component.
