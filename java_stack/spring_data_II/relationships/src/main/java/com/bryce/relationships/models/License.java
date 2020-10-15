@@ -27,7 +27,7 @@ public class License {
 	
     private String number;
 	
-	@DateTimeFormat(pattern="yyyy-MM-dd'T'HH:mm")
+	@DateTimeFormat(pattern="yyyy-MM-dd")
     private Date expirationDate;
     
 	@Size(min = 2, max = 200, message="Title must be at least 2 characters")

@@ -18,9 +18,9 @@
 			<p>
 		        <form:label path="person">Person: </form:label>
 		        <form:errors path="person"/>
-		        <form:select path="person" name="person" id="person">
+		        <form:select path="person">
 	               	<c:forEach items="${persons}" var="person">
-	                   	<form:option value="${person}"><c:out value="${person.firstName} ${person.lastName }"></c:out></form:option>
+	                   	<form:option value="${person.id}"><c:out value="${person.firstName} ${person.lastName }"></c:out></form:option>
 	                </c:forEach>
 	            </form:select>
 		    </p>
@@ -32,7 +32,7 @@
 		    <p>
 		        <form:label path="expirationDate">Expiration Date: </form:label>
 		        <form:errors path="expirationDate"/>
-		        <form:input path="expirationDate"/>
+		        <form:input path="expirationDate" type="date"/>
 		    </p>
 	   
 		    <input type="submit" value="Create"/>

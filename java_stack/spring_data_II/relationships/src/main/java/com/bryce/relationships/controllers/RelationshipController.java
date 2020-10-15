@@ -4,6 +4,7 @@ import java.util.List;
 
 import javax.validation.Valid;
 
+import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -16,6 +17,7 @@ import com.bryce.relationships.models.Person;
 import com.bryce.relationships.services.LicenseService;
 import com.bryce.relationships.services.PersonService;
 
+@Controller
 public class RelationshipController {
 	private final PersonService personService;
 	private final LicenseService licenseService;
@@ -53,7 +55,7 @@ public class RelationshipController {
 	@PostMapping("/licenses")
 	public String createLicense(@ModelAttribute("license") License license, BindingResult result) {
 		if(result.hasErrors()) {
-			return "newLicense.jsp";
+			return "newlicense.jsp";
 		}else {
 			licenseService.createLicense(license);
 			return "redirect:/persons/" + license.getPerson().getId();
