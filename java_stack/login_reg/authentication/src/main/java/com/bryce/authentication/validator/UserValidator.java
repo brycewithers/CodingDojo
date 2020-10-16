@@ -1,9 +1,8 @@
 package com.bryce.authentication.validator;
 
-import javax.validation.Validator;
-
 import org.springframework.stereotype.Component;
 import org.springframework.validation.Errors;
+import org.springframework.validation.Validator;
 
 import com.bryce.authentication.models.User;
 

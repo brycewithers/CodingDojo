@@ -21,7 +21,7 @@ public class Users {
     private final UserValidator userValidator;
     
     
-    public UserController(UserService userService, UserValidator userValidator) {
+    public Users(UserService userService, UserValidator userValidator) {
         this.userService = userService;
         this.userValidator = userValidator;
     }
