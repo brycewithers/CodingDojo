@@ -55,7 +55,7 @@ public class DojosAndNinjasController {
 	public String newNinja(@Valid @ModelAttribute("ninja") Ninja ninja, BindingResult result, Model model) {
 		if(result.hasErrors()) {
 			model.addAttribute("dojos", dojoService.findAll());
-			return "/dojoninja/newNinja.jsp";
+			return "/dojosandninjas/newninja.jsp";
 		} else {
 			ninjaService.create(ninja);
 			return "redirect:/ninjas/new";
